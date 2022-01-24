@@ -1,6 +1,6 @@
-import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
+import { Module } from '@nestjs/common'
+import { GraphQLModule } from '@nestjs/graphql'
+import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core'
 
 @Module({
   imports: [
