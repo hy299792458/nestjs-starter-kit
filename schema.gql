@@ -9,6 +9,15 @@ type User {
 }
 
 type Query {
-  author(id: Int!): User!
-  authors: [User!]!
+  user(id: Int!): User!
+  users: [User!]!
+}
+
+type Mutation {
+  createUser(data: UserDto!): User!
+}
+
+input UserDto {
+  firstName: String!
+  lastName: String!
 }
