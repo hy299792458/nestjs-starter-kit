@@ -14,10 +14,10 @@ type Query {
 }
 
 type Mutation {
-  createUser(data: UserDto!): User!
+  createUser(data: NewUserInput!): User!
 }
 
-input UserDto {
+input NewUserInput {
   firstName: String!
   lastName: String!
 }

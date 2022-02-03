@@ -6,18 +6,27 @@ const users = [
 ]
 
 export class UsersService {
-  async findOneById(id: number): Promise<User> {
-    return {
-      id,
-      firstName: `F: ${id}`,
-      lastName: `L: ${id}`,
-    }
-  }
-
   async addOne(firstName: string, lastName: string): Promise<User> {
     const id = users.length
     users.push({ id, firstName, lastName })
     return users[id]
+  }
+
+  async findOneById(id: number): Promise<User | null> {
+    users.forEach((user) => {
+      if (user.id === id) return user
+    })
+    return null
+  }
+
+  async updateById(
+    id: number,
+    { firstName, lastName }: { firstName: string; lastName: string },
+  ): Promise<User | null> {
+    const target = await this.findOneById(id)
+    target.firstName = firstName
+    target.lastName = lastName
+    return target
   }
 
   async findMany(): Promise<Array<User>> {
