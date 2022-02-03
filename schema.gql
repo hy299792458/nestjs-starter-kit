@@ -9,8 +9,14 @@ type User {
 }
 
 type Query {
+  login(user: AuthInput!): User!
   user(id: Int!): User!
   users: [User!]!
+}
+
+input AuthInput {
+  username: String!
+  password: String!
 }
 
 type Mutation {

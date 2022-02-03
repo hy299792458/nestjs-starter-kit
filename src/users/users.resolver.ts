@@ -1,7 +1,9 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { User } from './models/user.model'
+import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { User } from './models/user'
 import { UsersService } from './users.service'
 import { NewUserInput } from './dto/new-user.input'
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
+import { Logger, UseGuards } from '@nestjs/common'
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -18,7 +20,12 @@ export class UsersResolver {
   }
 
   @Mutation(() => User)
-  async createUser(@Args('data') data: NewUserInput): Promise<User> {
+  @UseGuards(JwtAuthGuard)
+  async createUser(
+    @Args('data') data: NewUserInput,
+    @Context() context,
+  ): Promise<User> {
+    Logger.debug(context.user)
     return this.usersService.addOne(data.firstName, data.lastName)
   }
 }
